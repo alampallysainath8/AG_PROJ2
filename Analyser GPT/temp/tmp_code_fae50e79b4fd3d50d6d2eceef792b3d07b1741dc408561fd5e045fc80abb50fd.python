@@ -1,0 +1,9 @@
+import pandas as pd
+
+# Load the CSV data
+data = pd.read_csv('data.csv')
+
+# Get the total number of rows
+total_rows = len(data)
+
+print(f"The total number of rows in the table is {total_rows}.")

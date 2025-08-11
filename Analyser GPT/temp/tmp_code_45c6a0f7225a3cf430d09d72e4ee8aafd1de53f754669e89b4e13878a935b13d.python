@@ -1,0 +1,28 @@
+import subprocess
+import sys
+
+# Install required libraries
+subprocess.check_call([sys.executable, "-m", "pip", "install", "pandas", "matplotlib"])
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read the CSV file
+df = pd.read_csv('data.csv')
+
+# Checking the columns in the dataset to identify survival information
+print("Columns in dataset:", df.columns)
+
+# Assuming the column name related to survived is 'Survived'
+# Count the number of people survived (1) and dead (0)
+survival_counts = df['Survived'].value_counts()
+
+# Plotting the bar graph
+plt.figure(figsize=(8,6))
+survival_counts.plot(kind='bar', color=['orange', 'blue'])
+plt.title("Number of People Survived vs Dead")
+plt.xticks(ticks=[0, 1], labels=['Dead', 'Survived'])
+plt.xlabel("Status")
+plt.ylabel("Count")
+plt.savefig("output.png")
+print("The graph has been saved as output.png showing number of people survived and dead.")

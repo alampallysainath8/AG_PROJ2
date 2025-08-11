@@ -1,0 +1,32 @@
+import subprocess
+import sys
+
+# Install required libraries
+subprocess.check_call([sys.executable, "-m", "pip", "install", "pandas", "matplotlib"])
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the CSV data
+data = pd.read_csv('data.csv')
+
+# Dropping NaN values for 'Age' and 'Survived' columns
+data = data.dropna(subset=['Age', 'Survived'])
+
+# Convert 'Age' to integer for better visualization clarity
+data['Age'] = data['Age'].astype(int)
+
+# Group data by 'Age' and sum the 'Survived' values
+age_survival_data = data.groupby('Age')['Survived'].sum()
+
+# Plotting the graph
+plt.figure(figsize=(10, 6))
+age_survival_data.plot(kind='bar', color='skyblue')
+plt.title('Number of Passengers Survived by Age')
+plt.xlabel('Age')
+plt.ylabel('Number of Passengers Survived')
+plt.grid(axis='y')
+
+# Save the plot as a PNG file
+plt.savefig('output.png')
+print("The graph has been plotted and saved as 'output.png'.")
